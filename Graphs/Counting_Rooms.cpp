@@ -6,55 +6,50 @@
 #include <set>
 #include <queue>
 using namespace std;
+
 int n , m;
 vector<vector<bool>>vis(1000,vector<bool>(1000));
 int dr[] = { -1 , 0 ,1,0};
 int dc[] = { 0,-1,0,1};
-void dfs(int x , int y) {
+
+
+
+void dfs(int x ,int y) {
     vis[x][y] = true;
     for(int i = 0 ; i < 4 ;i++) {
-        int nr = x + dr[i];
-        int nc = y + dc[i];
+        int dx = x + dr[i];
+        int dy = y + dc[i];
 
-        if(nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc]) {
-            dfs(nr,nc);
+        if(dx >= 0 && dx < n  &&  dy >= 0 && dy < m && !vis[dx][dy]) {
+            dfs(dx,dy);
         }
     }
 }
 int main() {
-   
     cin>>n>>m;
-    vector<vector<char>>arr(n,vector<char>(m));
-    for(int i = 0 ; i < n ;i++) {
-        for(int j = 0 ; j < m ; j ++) {
+    vector<vector<char>>arr(n , vector<char>(m));
+    for(int i = 0 ; i < n ; i++) {
+        for(int j = 0 ; j < m ; j++) {
             char c;
             cin>>c;
-            arr[i][j] = c;
-            // if(c == '#') {
-            //     vis[i][j] = true;
-            // }
-        }
-    }
-
-
-    for(int i = 0 ; i < n ;i++) {
-        for(int j = 0 ; j < m ; j++) {
-            if(arr[i][j] == '#') {
+            arr[i][j] =c;
+            if(c == '#') {
                 vis[i][j] = true;
             }
-        }
-    }
-    int ans = 0; 
-    for(int i = 0 ; i <n ; i++ ) {
-        for(int j = 0 ; j < m ;j++) {
-            if(!vis[i][j]  ) {
-                dfs(i,j);
-                ans++;
-            }
+
         }
     }
 
-
+    int ans =  0;
+// checking for connected components 
+for(int i = 0 ; i < n ; i++) {
+    for(int j = 0 ; j < m ;j++) {
+        if(!vis[i][j]) {
+            dfs(i,j);
+              ans++;
+        }
+    }
+}
     cout<<ans<<endl;
-     
+
 }
