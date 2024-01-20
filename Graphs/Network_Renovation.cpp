@@ -35,7 +35,7 @@ int main() {
     }
 
     dfs(1,-1);
-     ans =(int) leaves.size();
+    ans =(int) leaves.size();
     cout<<(ans + 1)/2<<endl;
 
     for(int i = 0 ; i < (ans + 1) / 2 ; i++) {
