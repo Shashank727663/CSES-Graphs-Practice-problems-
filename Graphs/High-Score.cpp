@@ -22,11 +22,14 @@ void bellman_ford() {
                 if (dist[u] != 1e8 && dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w;
                 }
+
+                dist[v] = max(static_cast<ll>(1e8 * -1), dist[v]);
+
             }
         }
     }
 
-    // nth relaxation
+    // nth relaxation check for a negavtive weight cycle
     for (ll u = 1; u <= n; u++) {
         for (auto& edge : adj[u]) {
             ll v = edge.first;

@@ -34,8 +34,8 @@ ll n , m ,q;
         adj[ut][vt] = min(wt, adj[ut][vt]);
         adj[vt][ut] = min(wt,adj[ut][vt]);
     }
-    // minimizing all pairs here 
 
+    // minimizing all pairs here 
     for(ll i = 1 ;i <= n ; i++) {
         for(ll j = 1 ; j <= n ; j++) {
             for(ll k = 1 ; k<= n ;k++) {
