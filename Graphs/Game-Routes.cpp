@@ -7,43 +7,44 @@
 #include <climits>
 #include <queue>
 using namespace std;
-
-int main() {
-    int n ,m;
-    cin>>n>>m;
-
-    vector<vector<int>>adj(n+1);
-    for(int i = 0 ; i < m ;i++) {
-        int u ,v;
-        cin>>u>>v;
-        adj[u].push_back(v);
-    }
-
-
-    vector<int>indegree(n+1,0);
+vector<vector<int>> adj;
+vector<int> cnt;
+vector<int> indegree;
+const int modb = 1e9+7;
+ int n ,m;
+void topo_sort() {
+    // topo sort using kahns algo 
     queue<int>q;
-    for(int i = 1 ; i <= n;i++) {
-        for(auto x : adj[i]) {
-            indegree[x]++;
-        }
-    }
-
-
-    for(int i  = 1 ; i <= n ;i++) {
+    // locking 1.
+    for(int i = 2 ; i<=n;i++) {
         if(indegree[i] == 0 ) {
             q.push(i);
         }
     }
 
-    int ans = 0;
+
     while(!q.empty()) {
-        int node  = q.front();
+        int u = q.front();
         q.pop();
-        for(auto x : adj[node]) {
-            if(x == n ) {
-                ans++;
-            }
+        for(auto x : adj[u]) {
             indegree[x]--;
+            if(indegree[x] == 0 ) {
+                q.push(x);
+            }
+        }
+    }
+
+
+    q.push(1);
+    cnt[1] = 1;
+
+    while(!q.empty()) {
+        int u = q.front();
+        q.pop();
+        for(auto x : adj[u]) {
+            indegree[x]--;
+            cnt[x] = cnt[u] + cnt[x];
+            cnt[x] %=modb;
 
             if(indegree[x] == 0 ) {
                 q.push(x);
@@ -53,5 +54,23 @@ int main() {
 
 
 
-    cout<<ans<<endl;
+}
+int main() {
+   
+    cin>>n>>m;
+    adj.resize(n+1);
+    cnt.resize(n+1);
+	indegree.resize(n+1);
+
+    for(int i = 0 ; i < m ;i++) {
+        int u ,v;
+        cin>>u>>v;
+        indegree[v]++;
+        adj[u].push_back(v);
+    }
+
+    topo_sort();
+    cout<<cnt[n];
+
+   
 }
