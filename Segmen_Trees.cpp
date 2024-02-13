@@ -39,7 +39,9 @@ int query(int node , int start,int end ,int l ,int r ) {
     }
 
     int mid = (start + end)/2;
+    // from the left subtree 
     int q1 = query(2 * node , start,mid , l ,r);
+    // from the right subtree
     int q2 = query(2* node + 1 , mid + 1 ,end,l,r);
     return q1 + q2;
 }
