@@ -6,36 +6,37 @@
 #include <set>
 #include <queue>
 using namespace std;
-vector<vector<int>> adj(200005);
-vector<bool>vis(200005);
-int dp[200005][2];
- int ans = 0 ;
+vector<int>adj[200005];
+bool done[200005];
+int ans = 0;
 
-void dfs(int prev ,int curr) {
-   
-    for(auto x : adj[curr] ) {
-        if(x != prev) {
-            dfs(curr  , x);
-            if(!vis[x] && !vis[curr]) {
-                vis[x] = vis[curr] = 1;
-            }
-            ans++;
-        }
-    }
+
+
+void dfs(int pre, int cur) {
+	for (int i : adj[cur]) {
+		if (i != pre) {
+			dfs(cur, i);
+			if (!done[i] && !done[cur]) done[cur] = done[i] = 1, ans++;
+		}
+	}
 }
+
 int main(){
-    int n;
-    cin>>n;
+  int n;
+  cin>>n;
+  if( n == 1) {
+    cout<<0<<endl;
+    return 0;
+  }
 
-    for(int i = 0 ; i < n-1;i++) {
-        int u ,v;
-        cin>>u>>v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-
-    dfs(0,1);
-    cout<<ans<<endl;
+for(int i = 0 ; i < n ; i++) {
+    int u , v;
+    cin>> u >> v;
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
 
 
+dfs(0,1);
+cout<<ans<<endl;
 }
