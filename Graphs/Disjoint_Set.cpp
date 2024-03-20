@@ -1,68 +1,68 @@
-#include<iostream>
-#include<vector>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
-class DisjointSet{
-   public:
-     vector<int>rank,parent,size;
-     
-     
-    DisjointSet(int n ) {
-        rank.resize(n+1,0);
-        parent.resize(n+1);
-        size.resize(n+1);
-        for(int i = 0 ; i <= n;i++) {
-            parent[i] = i;
-            size[i] =1;
+
+class DisJointSet {
+public:
+    vector<int> parent;
+    vector<int> Size;
+
+    DisJointSet(int n) : parent(n), Size(n, 1) {}
+
+    void make(int x) {
+        parent[x] = x;
+    }
+
+    int find(int x) {
+        if (x == parent[x]) {
+            return x;
+        }
+        // Path compression
+        return parent[x] = find(parent[x]);
+    }
+
+    void Union(int u, int v) {
+        u = find(u);
+        v = find(v);
+        if (u != v) {
+            parent[v] = u;
         }
     }
-    
-    
-    int findPar(int node){
-        if(node == parent[node]) {
-            return node;
+
+    void UnionBySize(int u, int v) {
+        u = find(u);
+        v = find(v);
+        if (u != v) {
+            if (Size[u] < Size[v]) {
+                swap(u, v);
+            }
+            parent[v] = u;
+            Size[u] += Size[v];
         }
-        
-        return parent[node] = findPar(parent[node]);
     }
-    
-    
-    void unionByRank(int u , int v) {
-        int p_u = findPar(u);
-        int p_v = findPar(v);
-        if(p_u == p_v) {
-            return;
-        }
-        
-        if(rank[p_u] < rank[p_u]) {
-            parent[p_u] = p_v;
-        }
-        
-        else if(rank[p_u] > rank[p_v]) {
-            parent[p_v] = p_v;
-        }
-        
-        else{
-            parent[p_v] = p_u;
-            rank[p_u]++;
-        }
-        }
-        
-        
-        void unionBySize(int u , int v) {
-            int p_u = findPar(u);
-            int p_v = findPar(v);
-            if(p_u == p_v) {
-                return;
-            }
-            
-            if(size[p_u] < size[p_v]) {
-                parent[p_u] = p_v;
-                size[p_v] += size[p_u];
-            }else {
-                parent[p_v] = p_u;
-                size[p_u] += size[p_v];
-            }
+};
+
+class Solution {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        DisJointSet d(n);
+        for (int i = 0; i < n; i++) {
+            d.make(i);
         }
 
-    
+        for (auto& x : edges) {
+            int u = x[0];
+            int v = x[1];
+            d.Union(u, v);
+        }
+
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (d.find(i) == i) {
+                ans++;
+            }
+        }
+        return ans;
+    }
 };

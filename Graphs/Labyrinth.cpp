@@ -6,73 +6,80 @@
 #include <set>
 #include <queue>
 using namespace std;
-int n , m ;
-vector<vector<bool>>vis(1000 , vector<bool>(1000));
-vector<vector<char>>arr(1000,vector<char>(1000));
-int dr[4] = {-1,0,1,0};
-int dc[4] = { 0 ,1 ,0,-1};
-int srcx , srcy , destx,desty;
-vector<vector<pair<int,int>>> path;
-int main() {
-    int n ,m;
-    cin>>n>>m;
-    queue<pair<int,int>>q;
-    path.resize(n, vector<pair<int, int>>(m));
-    for(int  i = 0 ; i < n ; i++) {
-        for(int j = 0 ; j < m ; j++) {
-            char c;
-            cin>>c;
-            arr[i][j] = c;
-            if(c == '#') {
-                vis[i][j] = true;
-            }
 
-            if( c == 'A') {
+int n, m;
+vector<vector<bool>> vis(1000, vector<bool>(1000));
+vector<vector<char>> arr(1000, vector<char>(1000));
+vector<vector<pair<int, int>>> path;  // Initialize the vector
+
+int dr[4] = {-1, 0, 1, 0};
+int dc[4] = {0, 1, 0, -1};
+int srcx, srcy, destx, desty;
+
+int main() {
+    cin >> n >> m;
+
+    // Initialize the 'path' vector with the same size as 'vis'
+    path.resize(n, vector<pair<int, int>>(m));
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            char ch;
+            cin >> ch;
+            if (ch == 'A') {
                 srcx = i;
                 srcy = j;
-            } 
-            else if(c == 'B') {
+            } else if (ch == 'B') {
                 destx = i;
                 desty = j;
+            }
 
+            if (ch == '#') {
+                vis[i][j] = true;
+            }
+            arr[i][j] = ch;
+        }
+    }
+
+    queue<pair<int, int>> q;
+    q.push({srcx, srcy});
+    vis[srcx][srcy] = true;
+
+    while (!q.empty()) {
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dr[i];
+            int ny = y + dc[i];
+            if (nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny]) {
+                q.push({nx, ny});
+                path[nx][ny] = {dr[i], dc[i]};  // Initialize before updating
+                vis[nx][ny] = true;
             }
         }
     }
-q.push({srcx , srcy});
-vis[srcx][srcy] = true;
-while(!q.empty()) {
-    int r = q.front().first;
-    int c = q.front().second;
-    q.pop();
-    for(int i = 0 ; i < 4 ;i++) {
-        int nr = r + dr[i];
-        int nc = c + dc[i];
-        if(nr >= 0 && nr < n && nc >=0 && nc < m && !vis[nr][nc]) {
-            q.push({nr,nc});
-            path[nr][nc] = {dr[i] , dc[i]};
-            vis[nr][nc] = true;
-        }
+
+    if (!vis[destx][desty]) {
+        cout << "NO";
+        return 0;
     }
-}
 
-if(!vis[destx][desty]) {
-    cout<<"NO"<<endl;
-    return 0;
-}
+    cout << "YES" << endl;
+    vector<pair<int, int>> ans;
+    pair<int, int> end = {destx, desty};
 
+    while (end.first != srcx || end.second != srcy) {
+        ans.push_back(path[end.first][end.second]);
+        end.first -= ans.back().first;
+        end.second -= ans.back().second;
+    }
 
-cout<<"YES"<<endl;
-vector<pair<int,int>>ans;
-pair<int,int> end = { destx , desty};
-while(end.first != srcx || end.second != srcy) {
-    ans.push_back(path[end.first][end.second]);
-    end.first -= ans.back().first;
-    end.second -= ans.back().second;
-}
+    reverse(ans.begin(), ans.end());
 
-reverse(ans.begin() ,  ans.end());
-cout<<ans.size()<<endl;
-for (auto c : ans) {
+    cout << ans.size() << endl;
+    for (auto c : ans) {
         if (c.first == 1 && c.second == 0) {
             cout << 'D';
         } else if (c.first == -1 && c.second == 0) {
@@ -84,4 +91,5 @@ for (auto c : ans) {
         }
     }
 
+    return 0;
 }
