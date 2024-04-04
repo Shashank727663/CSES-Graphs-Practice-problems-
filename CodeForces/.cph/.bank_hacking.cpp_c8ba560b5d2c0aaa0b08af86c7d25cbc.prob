@@ -1,0 +1,1 @@
+{"name":"Local: bank_hacking","url":"f:\\dsa\\CodeForces\\bank_hacking.cpp","tests":[{"id":1712200209011,"input":"7\n38 -29 87 93 39 28 -55\n1 2\n2 5\n3 2\n2 4\n1 7\n7 6","output":"93"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\dsa\\CodeForces\\bank_hacking.cpp","group":"local","local":true}

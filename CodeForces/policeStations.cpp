@@ -51,12 +51,7 @@ int main() {
         q.pop();
         for(auto x : adj[src]) {
             if(!vis[x.first]) {
-                q.push(x.first);
-                s.erase(x.second);
-               
-                cout<<endl;
-               
-                vis[x.first] = 1;
+            
 
             }
         }
