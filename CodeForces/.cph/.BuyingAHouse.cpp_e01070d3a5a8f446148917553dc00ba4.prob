@@ -1,0 +1,1 @@
+{"name":"Local: BuyingAHouse","url":"f:\\dsa\\CodeForces\\BuyingAHouse.cpp","tests":[{"id":1712545149469,"input":"5 1 20\n0 27 32 21 19","output":"40"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\dsa\\CodeForces\\BuyingAHouse.cpp","group":"local","local":true}

@@ -33,6 +33,8 @@ int main() {
         cin >> u >>v;
         adj[u].push_back(v);
     }
+
+    
     
   
      
@@ -51,12 +53,15 @@ int main() {
     }
 
 
-  if(count >1 ) {
+  if(count > 1 ) {
     maxValue++;
   }
 
+ 
+
 
     queue<int>q;
+    
     q.push(maxValue);
 
 
@@ -68,7 +73,10 @@ int main() {
                
                 strengths[x] = strengths[x] + 1;
               // finding neigbours 
-              int next = adj[x][0]; 
+             int next;
+                if(adj[x].size() > 0 ) {
+                     next = adj[x][0] ; 
+                }
           
               strengths[next] += 1;
                 //bank hacking 
