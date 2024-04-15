@@ -4,7 +4,8 @@
     "deque": "cpp",
     "queue": "cpp",
     "xstring": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "unordered_map": "cpp"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }
