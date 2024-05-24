@@ -56,7 +56,7 @@ path.resize(n, vector<pair<int, int>>(m));
             int ny = y + dc[i];
             if (nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny]) {
                 q.push({nx, ny});
-                path[nx][ny] = {dr[i], dc[i]};  // Initialize before updating
+                path[nx][ny] = {dr[i], dc[i]};  
                 vis[nx][ny] = true;
             }
         }
