@@ -1,0 +1,1 @@
+{"name":"Local: party","url":"f:\\dsa\\CodeForces\\party.cpp","tests":[{"id":1716714518411,"input":"5\n-1\n1\n2\n1\n-1","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\dsa\\CodeForces\\party.cpp","group":"local","local":true}
