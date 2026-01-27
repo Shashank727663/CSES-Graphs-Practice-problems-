@@ -1,0 +1,1 @@
+{"name":"Local: SlidingWSum","url":"/Users/shashankkrishu/CSES/Sliding-Window/SlidingWSum.cpp","tests":[{"id":1764127331931,"input":"8 5\n3 7 1 11","output":"12"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/shashankkrishu/CSES/Sliding-Window/SlidingWSum.cpp","group":"local","local":true}
